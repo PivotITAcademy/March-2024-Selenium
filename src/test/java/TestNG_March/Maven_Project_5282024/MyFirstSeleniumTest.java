@@ -23,19 +23,11 @@ public class MyFirstSeleniumTest {
 		driver.get("https://naveenautomationlabs.com/opencart/index.php?route=account/login");
 
 		// Identify Elements on DOM
-		WebElement emailInput = driver.findElement(By.id("input-email"));
-		WebElement pwdInput = driver.findElement(By.cssSelector("input[name='password']"));
-		WebElement loginBtn = driver.findElement(By.xpath("//input[@type='submit']"));
+		driver.findElement(By.id("input-email")).sendKeys("katepqa@gmail.com");
+		driver.findElement(By.cssSelector("input[name='password']")).sendKeys("Tester01");
+		driver.findElement(By.xpath("//input[@type='submit']")).click();
 
-		// Perform Actions
-
-		emailInput.sendKeys("katepqa@gmail.com");
-
-		pwdInput.sendKeys("Tester01");
-		
-		loginBtn.click();
-		
-		//close Browser
+		// close Browser
 		driver.close();
 
 	}
