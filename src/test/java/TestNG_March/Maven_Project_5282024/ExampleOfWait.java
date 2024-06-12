@@ -8,7 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -19,30 +21,60 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class ExampleOfWait {
 
 	WebDriver driver;
+	WebDriverWait wait;
 
 	@BeforeMethod
 	public void setUpBrowser() {
-		
-		WebDriverManager.firefoxdriver().setup();
-		driver = new FirefoxDriver();
-		driver.get("https://www.webroot.com/us/en");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+
+		WebDriverManager.chromedriver().setup();
+		driver = new ChromeDriver();
+		driver.get("https://demoqa.com/alerts");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		driver.manage().deleteAllCookies();
-		driver.manage().window().maximize();
+		// driver.manage().window().maximize();
 	}
 
 	@Test
-	public void selectValidation() {
+	public void alertInteraction() {
+		driver.findElement(By.id("timerAlertButton")).click();
 
-		driver.findElement(By.cssSelector("#onetrust-button-group>button:last-of-type")).click();
-		System.out.println("Btn was clicked");
+		// handling Alert by accepting it
+		driver.switchTo().alert().accept();
+
+		driver.findElement(By.id("confirmButton")).click();
+
+		// refusing an alert
+		driver.switchTo().alert().dismiss();
+
 	}
-	
+
 	@Test
-	public void tokyoTreatValidation() {
-		driver.navigate().to("https://tokyotreat.com/subscribe");
-		String text=driver.findElement(By.xpath("//span[text()='YOUR FIRST ORDER']")).getText();
-		System.out.println(text);
+	public void alertInteractionwithFiveSecDelay() {
+
+		// Btn to pop up Alert after 5 seconds
+		driver.findElement(By.id("timerAlertButton")).click();
+
+		wait.until(ExpectedConditions.alertIsPresent()).accept();
+
+		// handling Alert by accepting it
+		// driver.switchTo().alert().accept();
+
+	}
+
+	@Test
+	public void explicitWaitExampleForElementToBeClickable() {
+
+		driver.navigate().to("https://myaccount.carbonite.com/createaccount?forceVue=true&lang=en");
+
+		
+		driver.findElement(By.id("onetrust-accept-btn-handler")).click();
+		
+		 WebElement element=wait.until(ExpectedConditions.elementToBeClickable(By.id("btnCreateAccount")));
+
+		// handling Alert by accepting it
+		// driver.switchTo().alert().accept();
+
 	}
 
 	@AfterMethod

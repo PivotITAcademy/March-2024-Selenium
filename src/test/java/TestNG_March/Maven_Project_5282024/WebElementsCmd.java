@@ -27,7 +27,7 @@ public class WebElementsCmd {
 		// Filling Form
 		driver.findElement(By.id("input-firstname")).sendKeys("Munna");
 		driver.findElement(By.id("input-lastname")).sendKeys("Thakur");
-		driver.findElement(By.id("input-email")).sendKeys("Munna3@it.com");
+		driver.findElement(By.id("input-email")).sendKeys("Munna4@it.com");
 
 		driver.findElement(By.id("input-telephone")).sendKeys("4209211");
 
@@ -58,7 +58,7 @@ public class WebElementsCmd {
 		// Filling Form
 		driver.findElement(By.id("input-firstname")).sendKeys("Munna");
 		driver.findElement(By.id("input-lastname")).sendKeys("Thakur");
-		driver.findElement(By.id("input-email")).sendKeys("Munna3@it.com");
+		driver.findElement(By.id("input-email")).sendKeys("Munna5@it.com");
 
 		driver.findElement(By.id("input-telephone")).sendKeys("4209211");
 
@@ -117,7 +117,7 @@ public class WebElementsCmd {
 
 	@AfterMethod
 	public void tearDown() {
-		driver.close();
+		driver.quit();
 	}
 
 }
