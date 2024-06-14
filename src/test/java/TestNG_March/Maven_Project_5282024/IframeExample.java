@@ -30,14 +30,15 @@ public class IframeExample {
 		driver = new ChromeDriver();
 		driver.get("https://demoqa.com/frames");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		driver.manage().deleteAllCookies();
 		 driver.manage().window().maximize();
 	}
 
 	@Test
 	public void switchToIframe() {
-		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("frame1"));	
+		//driver.switchTo().frame("Wake Up Now");
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("Wake Up Now!!!!"));	
 		String textFromIframe1 = driver.findElement(By.id("sampleHeading")).getText();
 		System.out.println(textFromIframe1);
 		driver.switchTo().defaultContent();
@@ -49,19 +50,6 @@ public class IframeExample {
 		driver.switchTo().defaultContent();
 		String mainWindowText=driver.findElement(By.cssSelector("#framesWrapper h1")).getText();
 		System.out.println(mainWindowText);
-
-	}
-
-	@Test
-	public void alertInteractionwithFiveSecDelay() {
-
-		// Btn to pop up Alert after 5 seconds
-		driver.findElement(By.id("timerAlertButton")).click();
-
-		wait.until(ExpectedConditions.alertIsPresent()).accept();
-
-		// handling Alert by accepting it
-		// driver.switchTo().alert().accept();
 
 	}
 

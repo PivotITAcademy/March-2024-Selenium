@@ -1,7 +1,6 @@
 package TestNG_March.Maven_Project_5282024;
 
 import java.time.Duration;
-import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +18,7 @@ import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class TabExample {
+public class SeleniumException {
 
 	WebDriver driver;
 	WebDriverWait wait;
@@ -29,7 +28,7 @@ public class TabExample {
 
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
-		driver.get("https://demoqa.com/browser-windows");
+		driver.get("https://demoqa.com/frames");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		driver.manage().deleteAllCookies();
@@ -37,38 +36,22 @@ public class TabExample {
 	}
 
 	@Test
-	public void switchToTabs() {
-		String parentHandle = driver.getWindowHandle();
-		System.out.println(parentHandle);
-
-		driver.findElement(By.id("tabButton")).click();
-		Set<String> allWindowHandles = driver.getWindowHandles();
-
-		for (String windowHandle : allWindowHandles) {
-			if (!windowHandle.equals(parentHandle)) {
-				driver.switchTo().window(windowHandle);
-			}
-		}
-
-		System.out.println(driver.findElement(By.id("sampleHeading")).getText());
-
-		// returing to parent window
-		driver.switchTo().window(parentHandle);
-
-		System.out.println(driver.findElement(By.cssSelector("#browserWindows h1")).getText());
+	public void exampleOfNoSuchElementException() {
+		WebElement element = driver.findElement(By.cssSelector("Jagao Piyare"));
 	}
 
 	@Test
-	public void switchToTabsException() {
-		String parentHandle = driver.getWindowHandle();
-		System.out.println(parentHandle);
+	public void exampleOfNoSuchElementException2() {
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("frame1"));
+		WebElement textElement = driver.findElement(By.id("sampleHeading"));
+		//driver.navigate().refresh();
+		String textFromIframe1 = textElement.getText();
+		System.out.println(textFromIframe1);
+		driver.switchTo().defaultContent();
+		WebElement mainWindowTextElement = driver.findElement(By.cssSelector("#framesWrapper h1"));
+		String mainWindowText = mainWindowTextElement.getText();
+		System.out.println(mainWindowText);
 
-		driver.findElement(By.id("tabButton")).click();
-
-		// returing to parent window
-		driver.switchTo().window("Its Time to wake up now");
-
-		System.out.println(driver.findElement(By.cssSelector("#browserWindows h1")).getText());
 	}
 
 	@AfterMethod

@@ -37,7 +37,7 @@ public class ExampleOfWait {
 
 	@Test
 	public void alertInteraction() {
-		driver.findElement(By.id("timerAlertButton")).click();
+		//driver.findElement(By.id("timerAlertButton")).click();
 
 		// handling Alert by accepting it
 		driver.switchTo().alert().accept();
